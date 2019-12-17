@@ -1,0 +1,58 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "TranslateSpec",
+    "description": "wrapper for google translate",
+    "version": "1"
+  },
+  "produces": ["application/json"],
+  "schemes": ["http", "https"],
+  "definitions": {
+    "translationResponse": {
+      "properties": {
+        "translation": {
+          "description": "translation of the text you submitted",
+          "example": "¡Hola Mundo!",
+          "type": "string"
+        }
+      }
+    },
+    "translationRequest": {
+      "properties": {
+        "target": {
+          "description": "the language you want to translate into",
+          "example": "es",
+          "type": "string",
+          "required": true
+        },
+        "text": {
+          "description": "the text that you want translated",
+          "example": "Hello, World",
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  "paths": {
+    "/translate": {
+      "post": {
+        "parameters": [
+          {
+            "x-amf-mediaType": "application/json",
+            "in": "body",
+            "name": "translationRequest",
+            "schema": { "$ref": "#/definitions/translationRequest" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "x-amf-mediaType": "application/json",
+            "schema": { "$ref": "#/definitions/translationResponse" }
+          }
+        }
+      }
+    }
+  }
+}
